@@ -32,7 +32,7 @@ module.exports = function(bot)
         const vertDelta = p.y - bp.y;
 
         if (p.distanceTo(bp) > 6)
-            console.warn('WARNING Move: Bot will probably not be able to move to this in one move, could lead to unexpected behaivor.');
+            //console.warn('WARNING Move: Bot will probably not be able to move to this in one move, could lead to unexpected behaivor.');
 
         let MODE = bot.move.ENUMMove.Walk;
         if ((horizDelta > 1 && vertDelta >= 0) || (horizDelta === 1 && vertDelta === 1)) MODE = bot.move.ENUMMove.Hop;
@@ -41,10 +41,10 @@ module.exports = function(bot)
         const MovePromise = modalTraversal[MODE](p, bp);
         MovePromise.catch(function(ENUMStatus)
         {
-            console.error(
+            /*console.error(
                 'WARNING Move: Move encountered following error:',
                 Object.keys(bot.move.ENUMStatus).find(function(key) {return bot.move.ENUMStatus[key] === ENUMStatus;})
-            );
+            );*/
         });
 
         return MovePromise;
@@ -70,10 +70,10 @@ module.exports = function(bot)
                         .catch(function(ENUMStatus)
                         {
                             if (ENUMStatus === bot.move.ENUMStatus.Timeout)
-                                console.warn('WARNING Move: Bot move experienced timeout and did not reach goal.');
+                                //console.warn('WARNING Move: Bot move experienced timeout and did not reach goal.');
 
                             else if (ENUMStatus === bot.move.ENUMStatus.Failed)
-                                console.warn('WARNING Move: Bot move experienced failure and did not reach goal.');
+                                //console.warn('WARNING Move: Bot move experienced failure and did not reach goal.');
 
                             resolve(ENUMStatus);
                         });
@@ -82,7 +82,7 @@ module.exports = function(bot)
                     resolve(bot.move.ENUMStatus.Arrived);
             }
             moveAlong();
-        }).catch(function(e) {console.error('ERROR Move:', e);});
+        }).catch(function(e) {//console.error('ERROR Move:', e);});
 
         return GlobalMovePromise;
     };
